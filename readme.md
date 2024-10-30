@@ -18,7 +18,7 @@ Tujuan dari praktikum ini adalah untuk memberikan pemahaman yang lebih baik tent
 
 ## Struktur Proyek
 ```plaintext
-project/
+mvc-sample/
 ├── app/
 │   ├── controllers/
 │   │   └── UserController.php         # Controller untuk mengelola logika pengguna
@@ -26,11 +26,13 @@ project/
 │   │   └── User.php                   # Model untuk mengelola data pengguna
 │   └── views/
 │       └── user/
-│           ├── index.php              # View untuk menampilkan daftar pengguna
+│           ├── index.php              # View untuk menampilkan daftar dan manajemen pengguna
+│           ├── edit.php               # Edit untuk menampilkan halaman edit pengguna            
 │           └── create.php             # View untuk menampilkan form pembuatan pengguna baru
 ├── config/
 │   └── database.php                   # Konfigurasi database
 ├── public/
+│   ├── .htaccess                      # Pengaturan URL rewrite
 │   └── index.php                      # Entry point aplikasi
 ├── .htaccess                          # Pengaturan URL rewrite
 └── routes.php                         # Mendefinisikan rute untuk aplikasi
@@ -42,15 +44,15 @@ project/
    git clone https://gitlab.com/praktisi-mengajar/politeknik-negeri-cilacap/pemrograman-web/mvc-sample.git
    cd mvc-sample
    ```
-2. **Buat virtual host pada apache xampp:**
+2. **Jika menggunakan virtual host pada apache xampp:**
    Untuk menjalankan proyek ini pada Apache XAMPP, Anda perlu membuat virtual host:
 
    - Edit File Konfigurasi Apache: Buka file httpd-vhosts.conf di lokasi berikut:
-        ```plaintext 
+        ```php 
         C:\xampp\apache\conf\extra\httpd-vhosts.conf 
         ```
    - Tambahkan Konfigurasi Virtual Host: Tambahkan konfigurasi berikut di bagian bawah file:
-        ```plaintext 
+        ```php 
         <VirtualHost *:80>
             DocumentRoot "C:/xampp/htdocs/mvc-sample/public"
             ServerName mvc-sample.local
@@ -66,7 +68,7 @@ project/
         ```
 
     - Tambahkan baris berikut di bagian bawah:
-        ```plaintext 
+        ```php 
         127.0.0.1 mvc-sample.local
         ```
 
@@ -74,7 +76,17 @@ project/
 
     - Akses Proyek: Buka browser dan akses aplikasi di http://mvc-sample.local.
 
+3. **Jika menggunakan perintah php -S localhost:8080:**
+    Saat menjalankan aplikasi PHP dengan perintah ```php -S localhost:8080```
+    server built-in PHP hanya memahami struktur dasar dan tidak mendukung pengaturan URL rewriting seperti pada file ```.htaccess``` di Apache. Oleh karena itu, aplikasi tidak dapat menangani rute dinamis dengan benar dan akan menampilkan ```"Not Found"``` saat mengakses URL selain ```index.php``` langsung.
 
+    Langkah yang harus diikuti:
+    - Navigasi ke direktori ```mvc-sample``` dan jalankan server dari dalam folder ```public```, agar ```index.php``` langsung menjadi entry point untuk aplikasi:
+        ```php
+        cd mvc-sample/public
+        php -S localhost:8080
+        ```
+    - Akses Proyek: Buka browser dan akses aplikasi di ```localhost:8080```.
 
 ## Kontribusi
 Jika ingin berkontribusi pada proyek ini, silakan buat branch baru dan kirim pull request.
